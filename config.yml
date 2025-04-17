@@ -1,0 +1,16 @@
+colors:
+  idle: [16, 0, 128]
+  press: [0, 128, 255]
+  min: [255, 0, 0]
+  max: [0, 255, 0]
+events:
+  press:
+    0: 'amixer -q set Master toggle'
+    1: 'flatpak run org.atheme.audacious --play-pause'
+    2: './helpers/pactl-app-sink-input.bash set-sink-input-mute Discord toggle'
+    3: './helpers/pactl-app-source-output.bash set-source-output-mute "WEBRTC VoiceEngine" toggle'  # Discord mic input
+  turn:
+    0: 'amixer -q set Master {val[65535]}'
+    1: './helpers/pactl-app-sink-input.bash set-sink-input-volume audacious {val[100]}%'
+    2: './helpers/pactl-app-sink-input.bash set-sink-input-volume Discord {val[100]}%'
+    3: './helpers/pactl-app-source-output.bash set-source-output-volume "WEBRTC VoiceEngine" {val[100]}%'
