@@ -44,7 +44,7 @@ Set the idle color to orange (100% red, 50% green, 0% blue):
 
 ```yaml
 colors:
-	idle: [255, 128, 0]
+  idle: [255, 128, 0]
 ```
 
 ### Events
@@ -69,7 +69,7 @@ The value is caculated from the native value of the PCPanel Mini knob, which is 
 
 ##### Example
 
-Call `amixer` to set the master volume when you turn the first knob (the rest of the knobs do nothing):
+Call `amixer` to set the master volume when you turn the first knob. The rest of the knobs do nothing:
 
 ```yaml
 events:
@@ -84,10 +84,7 @@ When you turn the knob to 25%, `amixer` will be called with the arguments `-q se
 Of course, `amixer` can also take the value as an unsigned short (0-65535), which offers a bit more resolution:
 
 ```yaml
-events:
-  turn:
     0: 'amixer -q set Master {val[65535]}'
-    ...
 ```
 
 This then calls `amixer` with the arguments `-q set Master 16384`.
