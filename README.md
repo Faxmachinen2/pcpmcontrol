@@ -22,32 +22,14 @@ A simple Python script that maps the PCPanel Mini input dials and buttons to com
    ./run.bash
    ```
 
+You'll probably see some errors in the output because the default configuration is just whatever I use (`amixer`, the `audacious` flatpak, and `pactl`).
+
 ## Configuration
 
 Change the configuration by editing the `config.yml` file.
 The program will automatically detect when the file is changed and reload it.
 
-### Colors
-
-You can change the colors of the LED lighting on your PCPanel Mini.
-Colors are specified as an array of three values, representing the red, green and blue components.
-Each value must be in the range 0-255.
-
-* `colors.idle`: The color on your PCPanel when it's idle.
-* `colors.press`: The color shown on the knob when you press it.
-* `colors.min`: The color when you turn a knob all the way down.
-* `colors.max`: The color when you turn a knob all the way up.
-
-##### Example
-
-Set the idle color to orange (100% red, 50% green, 0% blue):
-
-```yaml
-colors:
-  idle: [255, 128, 0]
-```
-
-### Events
+### Input events
 
 For the PCPanel Mini, there are four press events (one for each knob that can be pressed),
 and four turn events (one for each knob that can be turned).
@@ -88,3 +70,23 @@ Of course, `amixer` can also take the value as an unsigned short (0-65535), whic
 ```
 
 This then calls `amixer` with the arguments `-q set Master 16384`.
+
+### Colors
+
+You can change the colors of the LED lighting on your PCPanel Mini.
+Colors are specified as an array of three values, representing the red, green and blue components.
+Each value must be in the range 0-255.
+
+* `colors.idle`: The color on your PCPanel when it's idle.
+* `colors.press`: The color shown on the knob when you press it.
+* `colors.min`: The color when you turn a knob all the way down.
+* `colors.max`: The color when you turn a knob all the way up.
+
+##### Example
+
+Set the idle color to orange (100% red, 50% green, 0% blue):
+
+```yaml
+colors:
+  idle: [255, 128, 0]
+```
