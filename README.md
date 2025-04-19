@@ -8,10 +8,6 @@ For a more sophisticated piece of software with an actual UI, check out [nvdweem
 
 This setup has been designed for `Ubuntu`-based systems and has only been tested on `Pop!_OS 22.04`. PCPanel Mini Control could work on other OSes, but the steps and scripts to set it up will probably be different.
 
-1. Make sure you have Python:
-   ```bash
-   python3 --version
-   ```
 1. Check out this repository:
    ```bash
    git clone https://github.com/Faxmachinen2/pcpmcontrol.git
