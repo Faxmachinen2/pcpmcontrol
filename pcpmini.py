@@ -6,9 +6,12 @@ from pathlib import Path
 class ValueFormatter:
 	def __init__(self, unit):
 		self._unit = unit
-	def __getitem__(self, max_value):
-		scale = int(max_value)
-		return round(scale * self._unit)
+	def __getitem__(self, param):
+		if type(param) is int:
+			return round(param * self._unit)
+		else:
+			minvalue, maxvalue = map(float, param.split(','))
+			return minvalue + (maxvalue - minvalue) * self._unit
 
 class Config:
 	def __init__(self, config_path):
@@ -41,9 +44,8 @@ async def press_event(index, config):
 async def turn_event(index, value, config):
 	template = config['events']['turn'][index]
 	if template:
-		unit = value / 255
-		val = ValueFormatter(unit)
-		command = template.format(unit=unit, val=val)
+		val = ValueFormatter(value / 255)
+		command = template.format(val=val)
 		print(command)
 		await asyncio.create_subprocess_shell(command)
 
@@ -123,6 +125,7 @@ async def main():
 	while True:
 		try:
 			with hid.Device(0x0483, 0xa3c4) as device:
+				print("Connected to device")
 				await operate(device, config)
 		except hid.HIDException as ex:
 			print(ex)

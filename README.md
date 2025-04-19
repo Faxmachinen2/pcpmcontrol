@@ -1,8 +1,12 @@
 # PCPanel Mini Control
 
-A simple Python script that maps the PCPanel Mini input dials and buttons to commands.
+A simple unofficial Python script that maps the PCPanel Mini input dials and buttons to commands.
+
+For a more sophisticated piece of software with an actual UI, check out [nvdweem's PCPanel](https://github.com/nvdweem/PCPanel).
 
 ## Getting started
+
+This setup has been designed for `Ubuntu`-based systems and has only been tested on `Pop!_OS 22.04`. PCPanel Mini Control could work on other OSes, but the steps and scripts to set it up will probably be different.
 
 1. Make sure you have Python:
    ```bash
@@ -17,12 +21,18 @@ A simple Python script that maps the PCPanel Mini input dials and buttons to com
    ```bash
    ./setup.bash
    ```
+1. Add a udev rule to grant access to the device:
+   ```bash
+   sudo ./setup-su.bash
+   ```
 1. Run the PCPanel Mini Control:
    ```bash
    ./run.bash
    ```
 
-You'll probably see some errors in the output because the default configuration is just whatever I use (`amixer`, the `audacious` flatpak, and `pactl`).
+If successful, you should see `Connected to device` in the output.
+
+You might also see some errors, because the default configuration expects certain commands to be available (`amixer`, the `audacious` flatpak, and `pactl`).
 
 ## Configuration
 
@@ -45,9 +55,12 @@ If you want an event to do nothing, leave it empty (but don't remove it).
 ##### Send knob value
 
 You can send the knob value to the commands you specify in `events.turn.X` by including the string `{val[N]}`,
-where `N` is the maximum value (the minimum is always 0).
+where `N` is the maximum value (the minimum is 0).
 
-The value is caculated from the native value of the PCPanel Mini knob, which is in the range 0-255.
+The value is a whole number caculated from the native value of the PCPanel Mini knob, which is in the range 0-255.
+
+An advanced format also exists, `{val[N,M]:f}`, that produces a decimal value between N and M.
+You can further format this with Python formatting syntax, e.g. `{val[-1.5,1.5]:.2f}` produces numbers with two decimals between -1.50 and 1.50.
 
 ##### Example
 
